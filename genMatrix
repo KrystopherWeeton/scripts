@@ -1,0 +1,5 @@
+#!/bin/sh
+
+dir=~/Dropbox/LatexScripts/GenMatrix
+
+java -cp $dir/ GenMatrix

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+RED='\033[0;31m'
+NC='\033[0m'
+
+number="1"
+for file in `ls`
+do
+
+	if [ -d $file ]; then
+		echo -e "${RED}${number}: $file${NC}"
+	else
+		echo -e "${number}: $file"
+	fi
+	number=`expr $number + 1`
+done

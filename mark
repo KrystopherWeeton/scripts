@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# adds a mark to the list of directory marks
+
+OUTPUT_FILE="/Users/Krystopher_Weeton/scripts/MARKS"
+
+# Check the proper number of arguments
+if [[ "$#" -ne 1 ]]; then
+  echo "You must add a name for the mark"
+  exit
+fi
+echo `pwd` $1 >> $OUTPUT_FILE

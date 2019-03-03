@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# clears the marks that are stored
+
+MARKS_FILE="/Users/Krystopher_Weeton/scripts/MARKS"
+
+if [[ "$#" -ne 0 ]]; then
+  echo "clrmarks does not take in any paramters"
+  exit
+fi
+
+>$MARKS_FILE
