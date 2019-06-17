@@ -25,32 +25,11 @@ function cdn() {
 
 export -f cdn
 
-function workspaces() {
 
-	cd "/Users/Krystopher_Weeton/Dropbox/Workspaces"
+function cd {
+  builtin cd "$@" && ls -ah
 }
 
-export -f workspaces
-
-function school() {
-
-	base='/Users/Krystopher_Weeton/Dropbox/UCSD-WI19'
-
-	suffix=""
-	case $1 in
-		100) suffix='/CSE100'
-			;;
-		183) suffix='/Math183'
-			;;
-		105) suffix='/CSE105'
-			;;
-		171) suffix='/POLI171'
-			;;
-	esac
-	cd $base$suffix
-}
-
-export -f school
 
 function cmake() {
 	clear

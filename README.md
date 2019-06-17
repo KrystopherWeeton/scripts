@@ -1,22 +1,18 @@
-# scripts
-Repository for local custom schell scripts and commands
-
 MARKING
-- goto
-- mark
-- list
-- clrmarks
+- goto <mark-name>		# Go to the specified mark
+- mark <mark-name>		# Add the current directory as a mark with the given name
+- list					# List all marks
+- clrmarks				# Clear all marks
+- remove <mark-name>	# Remove a specified mark
 
 MOVEMENT
-- clrdir
-- cdn (does not work well with files that have spaces)
-- lsn (does not work well with files that have spaces)
+- clrdir				# Clears the current directory
+- cdn <n>				# Go into the n'th file in the current directory (does not like spaces)
+- lsn					# Display all files in the current directory, numbered alphabetically
 
 MISC
-- cmake
-- school
-- workspaces
+- cmake					# Not sure what this does, and too lazy to look back at the function
 
 LATEX
-- gendocument
-- genmatrix
+- gendocument			# Generates a latex document with my customized header
+- genmatrix				# Generates a matrix with () to use in a latex document

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Removes the specified mark from the list of marks
+
+# Check the proper number of arguments
+if [[ "$#" -ne 1 ]]; then
+  echo "You must add a name for the mark to remove"
+  exit
+fi
+
+
+INPUT_FILE="/Users/Krystopher_Weeton/scripts/MARKS"
+TO_REMOVE=$1
+
+grep -v $TO_REMOVE $INPUT_FILE > "temp"
+mv 'temp' 'MARKS'
+
+list
