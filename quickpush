@@ -5,7 +5,5 @@ if [[ $# -ne 1 ]]; then
 	exit
 fi
 
-MESSAGE=$1
-
-git add .
-git commit -m "${MESSAGE}"
+quickcommit "$1"
+git push
