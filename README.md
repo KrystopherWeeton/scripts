@@ -16,3 +16,6 @@ MISC
 LATEX
 - gendocument			# Generates a latex document with my customized header
 - genmatrix				# Generates a matrix with () to use in a latex document
+
+Angular
+- gendoublebinding		# Generates a double binding for a specified variable with specified type
