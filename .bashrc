@@ -30,6 +30,16 @@ function cd {
   builtin cd "$@" && ls -ah
 }
 
+function back {
+	INPUT_FILE="/Users/Krystopher_Weeton/scripts/PINNED"
+	while read line; do
+		cd $line
+	done <$INPUT_FILE
+}
+
+
+export -f back
+
 
 function cmake() {
 	clear

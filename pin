@@ -1,0 +1,7 @@
+#!/bin/bash
+
+
+OUTPUT_FILE="/Users/Krystopher_Weeton/scripts/PINNED"
+echo `pwd` > $OUTPUT_FILE
+
+echo "Pinned `pwd`"

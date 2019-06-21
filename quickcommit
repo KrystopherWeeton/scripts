@@ -6,4 +6,6 @@ if [[ $# -ne 1 ]]; then
 fi
 
 MESSAGE=$1
-`git add . && git commit -m \"${MESSAGE}\"`
+
+git add .
+git commit -m "${MESSAGE}"
