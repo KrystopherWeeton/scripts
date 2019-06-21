@@ -4,6 +4,8 @@ MARKING
 - list					# List all marks
 - clrmarks				# Clear all marks
 - remove <mark-name>	# Remove a specified mark
+- pin					# Creates a pin for immediate use
+- back					# Goes back to the pin
 
 MOVEMENT
 - clrdir				# Clears the current directory
@@ -19,3 +21,8 @@ LATEX
 
 Angular
 - gendoublebinding		# Generates a double binding for a specified variable with specified type
+
+
+Git
+- quickcommit <message>	# Adds all files with 'git add .', and then commits the change with the given message
+- quickpush <message> 	# Does quickcommit <message>, then pushes the results
