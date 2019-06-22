@@ -1,0 +1,12 @@
+#!/bin/bash
+
+INPUT_FILE="/Users/Krystopher_Weeton/scripts/MARKS"
+
+MARKS=''
+
+while read WORD; do 
+    MARK="${WORD##* }"
+    MARKS="$MARKS $MARK"
+done <$INPUT_FILE
+
+complete -W "${MARKS}" goto
