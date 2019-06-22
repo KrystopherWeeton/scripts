@@ -25,10 +25,10 @@ function cdn() {
 
 export -f cdn
 
-
 function cd {
   builtin cd "$@" && ls -ah
 }
+
 
 function back {
 	INPUT_FILE="/Users/Krystopher_Weeton/scripts/PINNED"

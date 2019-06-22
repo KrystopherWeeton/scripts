@@ -11,6 +11,7 @@ MOVEMENT
 - clrdir				# Clears the current directory
 - cdn <n>				# Go into the n'th file in the current directory (does not like spaces)
 - lsn					# Display all files in the current directory, numbered alphabetically
+- lc                    # Clears the current screen, and then outputs the contents of the current directory
 
 MISC
 - cmake					# Not sure what this does, and too lazy to look back at the function
