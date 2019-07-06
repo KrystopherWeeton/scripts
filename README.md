@@ -15,6 +15,7 @@ MOVEMENT
 
 MISC
 - cmake					# Not sure what this does, and too lazy to look back at the function
+- localhost <port-num>  # Opens chrome to the specified port
 
 LATEX
 - gendocument			# Generates a latex document with my customized header
