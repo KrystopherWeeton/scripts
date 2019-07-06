@@ -98,3 +98,33 @@ function goto() {
 }
 
 export -f goto
+
+function tab() {
+    #!/bin/bash
+
+    # Opens the specified number of tab windows
+    # Note: You may have to allow terminal access through system preferences, and depends on the terminal being used
+
+    # Check the proper number of arguments
+    if [[ "$#" -ne 1 ]]; then
+        echo "USAGE: $0 <tab-number>"
+    exit
+    fi
+ 
+    # Stolen from http://dan.doezema.com/2013/04/programmatically-create-title-tabs-within-the-mac-os-x-terminal-app/
+    function new_tab() {
+    osascript \
+        -e "tell application \"Terminal\"" \
+        -e "tell application \"System Events\" to keystroke \"t\" using {command down}" \
+        -e "end tell" > /dev/null
+    } 
+
+
+    COUNT=$1
+    while [[ $COUNT > 0 ]]; do
+        COUNT="$(($COUNT - 1))"
+        new_tab
+    done
+}
+
+export -f tab
