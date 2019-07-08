@@ -17,6 +17,9 @@ MISC
 - cmake					# Not sure what this does, and too lazy to look back at the function
 - localhost <port-num>  # Opens chrome to the specified port
 
+VIRTUALENV
+- activate <env-name?>  # Activates the virtual environment in the working direction. The name defaults to 'venv'
+
 LATEX
 - gendocument			# Generates a latex document with my customized header
 - genmatrix				# Generates a matrix with () to use in a latex document
