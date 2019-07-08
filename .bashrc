@@ -128,3 +128,16 @@ function tab() {
 }
 
 export -f tab
+
+
+function activate() {
+    ENVIRONMENT='venv'
+    if [[ $# == 1 ]]; then
+        ENVIRONMENT=$1
+    fi
+
+    source "${ENVIRONMENT}/bin/activate"
+}
+
+export -f activate
+
