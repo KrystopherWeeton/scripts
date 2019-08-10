@@ -1,8 +1,9 @@
 #!/bin/bash
 
 if [[ $# -ne 1 ]]; then
-	echo "USAGE: $0 <message>"
-	exit
+    git add .
+    git commit
+    return
 fi
 
 MESSAGE=$1

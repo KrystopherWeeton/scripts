@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [[ $# -ne 1 ]]; then
-	echo "USAGE: $0 <message>"
-	exit
+    quickcommit
+    git push
 fi
 
 quickcommit "$1"
