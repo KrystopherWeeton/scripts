@@ -3,7 +3,7 @@
 if [[ $# -ne 1 ]]; then
     git add .
     git commit
-    return
+    exit
 fi
 
 MESSAGE=$1
