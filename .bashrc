@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Loads git tab completion
+source ./git-completion.bash
+
 set -o history -o histexpand
 
 function cdn() {
