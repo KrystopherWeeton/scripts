@@ -99,6 +99,21 @@ function goto() {
 
 export -f goto
 
+function finder() {
+    if [[ "$#" -ne 1 ]]; then
+        echo "USAGE: $0 <mark>"
+    exit
+    fi
+
+    MARK=$1
+
+    goto $MARK
+    open .
+    exit
+}
+
+export -f finder
+
 function tab() {
     #!/bin/bash
 
@@ -140,4 +155,7 @@ function activate() {
 }
 
 export -f activate
+
+
+list
 

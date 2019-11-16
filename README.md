@@ -6,6 +6,7 @@ MARKING
 - remove <mark-name>	# Remove a specified mark
 - pin					# Creates a pin for immediate use
 - back					# Goes back to the pin
+- finder <mark-name>    # Opens the mark in finder
 
 MOVEMENT
 - clrdir				# Clears the current directory
