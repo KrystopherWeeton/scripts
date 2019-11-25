@@ -73,6 +73,7 @@ function goto() {
 
 	ARG=$1
 
+    setopt sh_word_split
 	while read p; do
 		FIRST=1
 		for w in $p; do
@@ -87,10 +88,13 @@ function goto() {
 		if [[ $MARK == $ARG ]]; then
 			clear
 			cd $DIRECTORY
+            unsetopt sh_word_split
 			return
 		fi
 
 	done <$INPUT_FILE
+
+    unsetopt sh_word_split
 
 	echo "The mark you gave does not exist. Choose one from the list below."
 	list
@@ -102,7 +106,7 @@ export -f goto
 function finder() {
     if [[ "$#" -ne 1 ]]; then
         echo "USAGE: $0 <mark>"
-    exit
+        return
     fi
 
     MARK=$1
