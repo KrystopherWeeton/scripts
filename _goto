@@ -1,0 +1,9 @@
+#compdef _goto goto
+
+function _goto {
+
+_arguments -C "HERE" \
+                "COMMAND2" \
+                "*::arg:->args"
+
+}

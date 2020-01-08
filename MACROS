@@ -1,0 +1,4 @@
+test2
+echo HERE1; echo HERE2; echo HERE3
+test3
+goto 151; cd homework3; code .; clear

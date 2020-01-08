@@ -100,8 +100,47 @@ function goto() {
 	list
 
 }
-
 export -f goto
+
+
+function macro() {
+    INPUT_FILE="/Users/Krystopher_Weeton/scripts/MACROS" 
+
+    if [[ "$#" -ne 1 ]]; then
+        echo "Must have the name of a macro to execute."
+        return 1
+    fi
+
+    ARG=$1
+
+    FIRST=1
+    while read p; do
+        if [[ $FIRST -ne 1 ]]; then
+            COMMAND=$p
+            if [[ $NAME == $ARG ]]; then
+                echo "$COMMAND" | tr \; \\n | while read p; do
+                    echo "PART: $p"
+                    if [[ "$p" == "code "* ]]; then
+                        echo "CASE 1"
+                        "$p"
+                    else
+                        bash "$p"
+                    fi
+                done
+                return
+            fi
+            FIRST=1
+        else
+            NAME=$p
+            FIRST=0
+        fi
+    done <$INPUT_FILE
+    unsetopt sh_word_split
+
+    echo "The macro you gave does not exist."
+
+}
+export -f macro
 
 function finder() {
     if [[ "$#" -ne 1 ]]; then

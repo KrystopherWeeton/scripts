@@ -7,6 +7,12 @@ MARKING
 - pin					# Creates a pin for immediate use
 - back					# Goes back to the pin
 - finder <mark-name>    # Opens the mark in finder
+- sortmarks             # Sorts the marks in alphabetical order
+
+MACROS
+- clrmacros                     # Clears the macros from the command
+- recordmacro <name> <command>  # Records a new macro
+- listmacros                    # Lists the macros
 
 MOVEMENT
 - clrdir				# Clears the current directory

@@ -96,8 +96,40 @@ function goto() {
 	list
 
 }
-
 export -f goto
+
+function macro() {
+    INPUT_FILE = "/Users/Krystopher_Weeton/scripts/MACROS"
+
+    if [[ "$#" -ne 1 ]]; then
+        echo "Must have the name of a macro to execute."
+        return 1
+    fi
+
+    ARG=$1
+
+    while read p; do
+        FIRST=1
+        for w in $p; do
+            if [[ FIRST -ne 1 ]]; then
+                NAME=$w
+            else
+                COMMAND=$2
+            fi
+            FIRST=0
+        done
+
+        if [[ $NAME == $ARG ]]; then
+            exec '$COMMAND'
+            return
+        fi
+    done <$INPUT_FILE
+
+    echo "The macro you gave does not exist."
+
+}
+
+export -f macro
 
 function finder() {
     if [[ "$#" -ne 1 ]]; then

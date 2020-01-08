@@ -1,0 +1,12 @@
+#!/bin/bash
+# Makes and runs a C program
+
+# Check the proper number of arguments
+if [[ "$#" -ne 1 ]]; then
+    echo "USAGE: $0 <file_name>"
+    exit
+fi
+
+clear
+make $1
+./$1

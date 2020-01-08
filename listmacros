@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Lists all current stored marks
+
+INPUT_FILE="/Users/Krystopher_Weeton/scripts/MACROS"
+
+GREEN="\033[0;32m"        # Green
+NC='\033[0m'
+
+PARITY=0
+NAME=""
+CMD=""
+while read p; do
+    if [[ $PARITY -ne 1 ]]; then
+        NAME=$p
+        PARITY=1
+    else
+        CMD=$p
+
+        # Print out the statement
+        echo -e "${GREEN}${NAME}${NC}: ${CMD}"
+        PARITY=0
+    fi
+done <$INPUT_FILE
