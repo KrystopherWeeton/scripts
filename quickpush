@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $# -ne 1 ]]; then
-    quickcommit
+    quickcommit "Krystopher Weeton"
     git push
 fi
 

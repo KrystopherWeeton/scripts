@@ -1,9 +1,19 @@
-#compdef _goto goto
+#compdf goto
 
-function _goto {
+complete -F "HERE TWO"
 
-_arguments -C "HERE" \
-                "COMMAND2" \
-                "*::arg:->args"
 
-}
+
+#!/bin/bash 
+#
+#INPUT_FILE="/Users/Krystopher_Weeton/scripts/MARKS"
+#
+#while read WORD; do 
+#    MARK="${WORD##* }"
+#    MARKS="$MARKS $MARK"
+#done <$INPUT_FILE
+#
+#complete -W "${MARKS}" goto
+
+
+

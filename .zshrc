@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#autoload -U +X compinit && compinit
+#autoload -U +X bashcompinit && bashcompinit
+
 #set -o history -o histexpand
 
 function cdn() {
@@ -63,6 +66,7 @@ function cldir() {
 export -f cldir
 
 function goto() {
+    compadd '_goto'
 
 	INPUT_FILE="/Users/Krystopher_Weeton/scripts/MARKS"
 
