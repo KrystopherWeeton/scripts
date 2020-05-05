@@ -1,10 +1,5 @@
 #!/bin/bash
 
-#autoload -U +X compinit && compinit
-#autoload -U +X bashcompinit && bashcompinit
-
-#set -o history -o histexpand
-
 function cdn() {
 
 	# guard statements to ensure proper execution
