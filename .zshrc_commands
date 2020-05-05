@@ -61,7 +61,7 @@ function cldir() {
 export -f cldir
 
 function goto() {
-    compadd '_goto'
+    #compadd '_goto'
 
 	INPUT_FILE="/Users/Krystopher_Weeton/scripts/MARKS"
 

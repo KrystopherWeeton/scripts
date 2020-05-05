@@ -39,4 +39,4 @@ Git
 - quickcommit <message>	# Adds all files with 'git add .', and then commits the change with the given message
 - quickpush <message> 	# Does quickcommit <message>, then pushes the results
 
-
+ZSH
