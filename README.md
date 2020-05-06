@@ -40,3 +40,4 @@ Git
 - quickpush <message> 	# Does quickcommit <message>, then pushes the results
 
 ZSH
+- zsh-colors
