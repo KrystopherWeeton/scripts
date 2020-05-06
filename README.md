@@ -40,4 +40,6 @@ Git
 - quickpush <message> 	# Does quickcommit <message>, then pushes the results
 
 ZSH
-- zsh-colors
+- zsh-colors            # Lists all the colors used in ZSH
+- prompt-write          # Describes the prompt to the user
+- toggle-git-prompt     # toggles whether or not the git prompt displays

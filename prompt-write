@@ -1,3 +1,7 @@
 #!/bin/zsh
 
-echo "[DIRECTORY] [BRANCH] [# Changed files]
+if [ "$HIDE_GIT" = "True" ]; then
+    echo "[Directory]"
+else
+    echo "[DIRECTORY] [BRANCH] [# Changed files] %"
+fi
