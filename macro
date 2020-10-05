@@ -1,0 +1,91 @@
+#!/usr/local/bin/python3
+import click
+import sys
+from typing import Dict
+import os
+import subprocess
+
+MACRO_FILE: str = ".macros"
+
+def _resolve_macro_file() -> Dict[str, str]:
+    if not os.path.isfile(MACRO_FILE):
+        with open(MACRO_FILE, "w+"):
+            pass
+    
+    with open(MACRO_FILE, "r+") as f:
+        d = {}
+        for line in f.readlines():
+            x: [str] = line.split('😀')
+            d[x[0]] = x[1]
+        return d
+
+
+def _write_macro_file(macros: Dict[str, str]):
+    with open(MACRO_FILE, "w+") as f:
+        f.writelines([f"{k}😀{v}" for k, v in macros.items()])
+
+
+@click.group()
+def run():
+    pass
+
+
+@run.command("record")
+@click.option("-m", "--macro-name", required=False, help="The name of the macro. Used to invoke the command.")
+def record(macro_name: str):
+    """ Records a macro and stores it in the list of macros. """
+    if not macro_name:
+        macro_name = click.prompt("Enter a name for the macro")
+        if not macro_name:
+            sys.exit(1)
+    
+    macro_command = click.prompt("Enter a command for the macro")
+    if not macro_command:
+        sys.exit(1)
+
+    macros: Dict[str, str] = _resolve_macro_file()
+    macros[macro_name] = macro_command
+    _write_macro_file(macros)
+
+
+@run.command("remove")
+@click.argument("macro-name")
+def remove(macro_name: str):
+    """ Removes a macro from the list of stored macros if it exists. """
+    if not macro_name:
+        macro_name = click.prompt("Enter a name for the macro to remove.")
+        if not macro_name:
+            sys.exit(1)
+
+    macros: Dict[str, str] = _resolve_macro_file()
+    if macro_name not in macros:
+        click.secho("Macro name does not exist.")
+        sys.exit(1)
+
+    macros.pop(macro_name)
+    _write_macro_file(macros)
+
+
+@run.command("run")
+@click.argument("macro-name")
+def run_macro(macro_name: str):
+    """ Runs the provided macro. """
+    macros = _resolve_macro_file()
+    if macro_name not in macros:
+        click.secho("Macro name does not exist.")
+        sys.exit(1)
+    subprocess.run(macros[macro_name], shell=True)
+
+
+@run.command("list")
+def list():
+    """ Lists all currently stored macros. """
+    macros = _resolve_macro_file()
+    for k, v in macros.items():
+        click.secho(f"{k}:\t{v}")
+    
+    if len(macros.items()) == 0:
+        click.secho("No macros found. Run `macro record` to record a macro.")
+
+if __name__ == '__main__':
+    run()

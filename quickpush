@@ -1,9 +1,0 @@
-#!/bin/bash
-
-if [[ $# -ne 1 ]]; then
-    quickcommit "Krystopher Weeton"
-    git push
-fi
-
-quickcommit "$1"
-git push
