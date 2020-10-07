@@ -1,5 +1,0 @@
-#!/bin/sh
-
-dir=~/Dropbox/LatexScripts/GenDocument
-
-java -cp $dir/ GenDocument

@@ -1,12 +1,101 @@
-#!/bin/bash
+#!/usr/local/bin/python3
+import click
+import re
+import sys
+from typing import Dict
+import os
+import subprocess
 
-# adds a mark to the list of directory marks
+MARK_FILE: str = f"{os.path.expanduser('~')}/scripts/.marks"
 
-OUTPUT_FILE="/Users/Krystopher_Weeton/scripts/MARKS"
+# COLORS
+RED     = "\u001b[31m"
+RESET   = "\u001b[0m"
+PINK    = "\033[38;5;207m"
 
-# Check the proper number of arguments
-if [[ "$#" -ne 1 ]]; then
-  echo "You must add a name for the mark"
-  exit
-fi
-echo `pwd` $1 >> $OUTPUT_FILE
+def echo(message: str, color: str = None, bold: bool = False, newline: bool = True):
+    click.echo(click.style(message, fg=color, bold=bold), nl=newline)
+
+def _read_marks() -> Dict[str, str]:
+    if not os.path.isfile(MARK_FILE):
+        with open(MARK_FILE, 'w+'):
+            pass
+    with open(MARK_FILE, 'r+') as f:
+        d = {}
+        for line in f.readlines():
+            x: [str] = line.strip().split(' ')
+            d[x[1]] = x[0]
+        return d
+
+
+def _write_marks(marks: Dict[str, str]):
+    if not os.path.isfile(MARK_FILE):
+        echo("Could not find macro file.")
+        sys.exit(1)
+
+    with open(MARK_FILE, "w+") as f:
+        f.writelines([f"{v} {k}\n" for k, v in sorted(marks.items())])
+
+
+def __color_generator(color: str):
+    def _color(match):
+        return f"{color}{match.group(0)}{RESET}"
+    return _color
+
+
+def _color_matching_text(regex_pattern: str, text: str, color: str) -> str:
+    return re.sub(regex_pattern, __color_generator(color), text)
+
+def _prompt_mark_name(mark_name: str) -> str:
+    if not mark_name:
+        mark_name = click.prompt("Mark Name")
+        if not mark_name:
+            sys.exit(1)
+    return mark_name
+
+
+@click.group()
+def run():
+    pass
+
+
+@run.command("record")
+@click.argument("mark-name", required=False)
+def record(mark_name):
+    mark_name = _prompt_mark_name(mark_name)
+    directory: str = subprocess.check_output('pwd', shell=True).decode("utf-8").strip()
+
+    marks: Dict[str, str] = _read_marks()
+    if mark_name in marks:
+        click.secho("ERROR: Mark name already exists.")
+        sys.exit(1)
+    
+    marks[mark_name] = directory
+    _write_marks(marks)
+
+
+@run.command("list")
+def list():
+    marks: Dict[str, str] = _read_marks()
+    for k, v in marks.items():
+        echo(k, color="green", newline=False)
+        echo(f":\t{v}")
+
+    if len(marks.items()) == 0:
+        click.secho("No marks found. Run `mark record` to record a macro.")
+    
+
+@run.command("remove")
+@click.argument("mark-name", required=False)
+def remove(mark_name):
+    mark_name = _prompt_mark_name(mark_name)
+    marks: Dict[str, str] = _read_marks()
+    if mark_name not in marks:
+        click.secho("ERROR: Mark does not exist.")
+        sys.exit(1)
+    marks.pop(mark_name)
+    _write_marks(marks)
+
+
+if __name__ == "__main__":
+    run()

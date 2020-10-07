@@ -1,5 +1,0 @@
-#!/bin/bash
-
-OUTPUT_FILE="/Users/Krystopher_Weeton/scripts/README.md"
-
-cat $OUTPUT_FILE

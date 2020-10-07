@@ -71,7 +71,7 @@ export -f cldir
 function goto() {
     #compadd '_goto'
 
-	INPUT_FILE="/Users/Krystopher_Weeton/scripts/MARKS"
+	INPUT_FILE="/Users/Krystopher_Weeton/scripts/.marks"
 
 	if [[ "$#" -ne 1 ]]; then
 		echo "goto requires a single argument which is the name of the mark to go to."
@@ -91,6 +91,7 @@ function goto() {
 			fi
 			FIRST=0
 		done
+        echo $MARK $DIRECTORY
 
 		if [[ $MARK == $ARG ]]; then
 			clear
