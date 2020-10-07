@@ -1,11 +1,22 @@
 #!/usr/local/bin/python3
 import click
+import re
 import sys
 from typing import Dict
 import os
 import subprocess
 
-MACRO_FILE: str = ".macros"
+MACRO_FILE: str = f"{os.path.expanduser('~')}/scripts/.macros"
+ARGUMENT_REGEX = r'\#\d'
+
+# COLORS
+RED     = "\u001b[31m"
+RESET   = "\u001b[0m"
+PINK    = "\033[38;5;207m"
+
+def echo(message: str, color: str = None, bold: bool = False, newline: bool = True):
+    click.echo(click.style(message, fg=color, bold=bold), nl=newline)
+
 
 def _resolve_macro_file() -> Dict[str, str]:
     if not os.path.isfile(MACRO_FILE):
@@ -15,18 +26,39 @@ def _resolve_macro_file() -> Dict[str, str]:
     with open(MACRO_FILE, "r+") as f:
         d = {}
         for line in f.readlines():
+            line = line.strip()
             x: [str] = line.split('😀')
             d[x[0]] = x[1]
         return d
 
 
 def _write_macro_file(macros: Dict[str, str]):
+    if not os.path.isfile(MACRO_FILE):
+        echo("Could not find macro file.")
+        sys.exit(1)
+
     with open(MACRO_FILE, "w+") as f:
-        f.writelines([f"{k}😀{v}" for k, v in macros.items()])
+        f.writelines([f"{k}😀{v}\n" for k, v in macros.items()])
+
+
+def _validate_all_arguments_set(macro: str) -> bool:
+    return re.search(ARGUMENT_REGEX, macro) == None
+
+
+
+def __color_generator(color: str):
+    def _color(match):
+        return f"{color}{match.group(0)}{RESET}"
+    return _color
+
+
+def _color_matching_text(regex_pattern: str, text: str, color: str) -> str:
+    return re.sub(regex_pattern, __color_generator(color), text)
 
 
 @click.group()
-def run():
+@click.pass_context
+def run(ctx):
     pass
 
 
@@ -68,13 +100,23 @@ def remove(macro_name: str):
 
 @run.command("run")
 @click.argument("macro-name")
-def run_macro(macro_name: str):
+@click.argument("args", nargs=-1)
+def run_macro(macro_name: str, args):
     """ Runs the provided macro. """
     macros = _resolve_macro_file()
     if macro_name not in macros:
         click.secho("Macro name does not exist.")
         sys.exit(1)
-    subprocess.run(macros[macro_name], shell=True)
+    macro: str = macros[macro_name]
+    for i, arg in enumerate(args):
+        macro = macro.replace(f"#{i + 1}", arg)
+    
+    # Validate arguments were set in the macro
+    if not _validate_all_arguments_set(macro):
+        click.secho("Macro does not have all arguments specified.")
+        click.secho(macro)
+        sys.exit(1)
+    subprocess.run(macro, shell=True)
 
 
 @run.command("list")
@@ -82,10 +124,13 @@ def list():
     """ Lists all currently stored macros. """
     macros = _resolve_macro_file()
     for k, v in macros.items():
-        click.secho(f"{k}:\t{v}")
+        echo(k, color="green", newline=False)
+        colored_value = _color_matching_text('\\#\\d', v, PINK)
+        echo(f":\t{colored_value}")
     
     if len(macros.items()) == 0:
         click.secho("No macros found. Run `macro record` to record a macro.")
+
 
 if __name__ == '__main__':
     run()
