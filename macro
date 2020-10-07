@@ -41,8 +41,8 @@ def _write_macro_file(macros: Dict[str, str]):
         f.writelines([f"{k}😀{v}\n" for k, v in macros.items()])
 
 
-def _validate_all_arguments_set(macro: str) -> bool:
-    return re.search(ARGUMENT_REGEX, macro) == None
+def _contains_arguments(text: str) -> bool:
+    return re.search(ARGUMENT_REGEX, text) != None
 
 
 
@@ -109,10 +109,13 @@ def run_macro(macro_name: str, args):
         sys.exit(1)
     macro: str = macros[macro_name]
     for i, arg in enumerate(args):
+        if _contains_arguments(arg):
+            click.secho("Your arguments cannot contain #<digit> as this is reserved for arguments.")
+            sys.exit(1)
         macro = macro.replace(f"#{i + 1}", arg)
     
     # Validate arguments were set in the macro
-    if not _validate_all_arguments_set(macro):
+    if _contains_arguments(macro):
         click.secho("Macro does not have all arguments specified.")
         click.secho(macro)
         sys.exit(1)
